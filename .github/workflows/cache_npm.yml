@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  install_and_cahce:
+  install_and_cache:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
