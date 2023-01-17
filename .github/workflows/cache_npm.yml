@@ -35,6 +35,6 @@ jobs:
         run: npm install
       - name: Get Date and Time to Set Version #
         id: date
-        run: echo "{date}={$(date +'%Y-%m-%d %H:%M:%S %Z')}" >> $GITHUB_OUTPUT
+        run: echo "action_date=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
       - name: Echo Date Time
-        run: echo ${{ steps.date.outputs.date }}
+        run: echo ${{ env.action_date }}
