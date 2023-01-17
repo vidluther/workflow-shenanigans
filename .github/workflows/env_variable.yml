@@ -16,7 +16,7 @@ jobs:
           node-version: "18.13.0"
           cache: npm
       - name: Get Date and Time to Set Version #
-        id: date
+        id: get_date_and_time
         run: echo "action_date=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
       - name: Echo Date Time
-        run: echo ${{ env.action_date }}
+        run: echo ${{ steps.get_date_and_time.outputs.action_date }}
