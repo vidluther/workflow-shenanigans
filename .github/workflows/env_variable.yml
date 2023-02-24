@@ -1,4 +1,4 @@
-name: "set build time as env variable"
+name: "Build App with Version #"
 
 on:
   workflow_dispatch:
