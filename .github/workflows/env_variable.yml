@@ -1,11 +1,13 @@
-name: "set build time as env variable"
+name: "Build App with Version #"
 
 on:
   workflow_dispatch:
   push:
 
+env:
+  FILE_NAME: workflow-shenanigans-nextjsapp-${{ github.ref_name }}.tar.gz
 jobs:
-  install_and_cache:
+  build_nextjs_app:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -17,15 +19,25 @@ jobs:
           cache: npm
       - name: Install npm packages
         run: npm install
-      - name: Get Date and Time to Set Version #
+      - name: Get Current Date and Time of Build
         id: get_date_and_time
-        run: echo "action_date=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
-      - name: Echo Date Time
-        run: echo ${{ steps.get_date_and_time.outputs.action_date }}
+        run: echo "build_time=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
+      - name: Echo Build Time
+        run: echo ${{ steps.get_date_and_time.outputs.build_time }}
       - name: Set Version
         id: set_version
-        run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.action_date }} | sed 's/[^0-9]//g')" >> $GITHUB_OUTPUT
+        run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.build_time }} | sed 's/[^0-9]//g')" >> $GITHUB_OUTPUT
       - name: Build NextJS App
         run: npm run build
         env:
-          NEXT_PUBLIC_VERSION: ${{ steps.set_version.outputs.action_version }}
+          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}-${{ steps.set_version.outputs.app_version }}
+      - name: debug filename
+        run: echo "About to build $FILE_NAME"
+      - name: Create tarball
+        id: nextjs_app_tarball
+        run: tar -czvf $FILE_NAME out
+      - name: Upload tarball
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.FILE_NAME }}
+          path: ${{ env.FILE_NAME }}
