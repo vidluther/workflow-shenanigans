@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  FILE_NAME: workflow-shenanigans-nextjsapp-${{ github.ref_name }}.tar.gz
+  FILE_NAME: workflow-shenanigans-nextjsapp-${{ github.ref_name }}
 jobs:
   build_nextjs_app:
     runs-on: ubuntu-22.04
@@ -20,7 +20,7 @@ jobs:
       - name: Install npm packages
         run: npm install
       - name: Get Current Date and Time of Build
-        id: get_date_and_time
+        id: build_time
         run: echo "build_time=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
       - name: Echo Build Time
         run: echo ${{ steps.get_date_and_time.outputs.build_time }}
@@ -35,9 +35,9 @@ jobs:
         run: echo "About to build $FILE_NAME"
       - name: Create tarball
         id: nextjs_app_tarball
-        run: tar -czvf $FILE_NAME out
+        run: tar -czvf $FILE_NAME.tar.gz out
       - name: Upload tarball
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.FILE_NAME }}
-          path: ${{ env.FILE_NAME }}
+          path: ${{ env.FILE_NAME }}.tar.gz
