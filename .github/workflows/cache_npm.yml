@@ -2,7 +2,7 @@ name: "Cache NPM"
 
 on:
   workflow_dispatch:
-  push:
+#  push:
 
 jobs:
   install_and_cache:
