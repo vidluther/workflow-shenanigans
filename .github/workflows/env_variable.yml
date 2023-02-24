@@ -20,17 +20,17 @@ jobs:
       - name: Install npm packages
         run: npm install
       - name: Get Current Date and Time of Build
-        id: build_time
-        run: echo "build_time=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_OUTPUT
+        id: get_date_and_time
+        run: echo "build_time=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
       - name: Echo Build Time
-        run: echo ${{ steps.get_date_and_time.outputs.build_time }}
+        run: echo "${{ env.build_time }}"
       - name: Set Version
         id: set_version
-        run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.build_time }} | sed 's/[^0-9]//g')" >> $GITHUB_OUTPUT
+        run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.build_time }}')" >> $GITHUB_OUTPUT
       - name: Build NextJS App
         run: npm run build
         env:
-          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}-${{ steps.set_version.outputs.app_version }}
+          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}-${{ env.build_time }}
       - name: debug filename
         run: echo "About to build $FILE_NAME"
       - name: Create tarball
