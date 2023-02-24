@@ -24,9 +24,9 @@ jobs:
         run: echo "build_time=$(date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
       - name: Echo Build Time
         run: echo "${{ env.build_time }}"
-      - name: Set Version
-        id: set_version
-        run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.build_time }}')" >> $GITHUB_OUTPUT
+      # - name: Set Version
+      #   id: set_version
+      #   run: echo "app_version=$(echo ${{ steps.get_date_and_time.outputs.build_time }}')" >> $GITHUB_OUTPUT
       - name: Build NextJS App
         run: npm run build
         env:
