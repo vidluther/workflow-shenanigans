@@ -6,18 +6,23 @@ Hopefully, I can collect a list of snippets and examples that I can then use in 
 
 ## Caching npm installs
 
-npm install can take forever.. so I want to see if I can cache the results of npm install for future runs and save some build times.
+[x] npm install can take forever.. so I want to see if I can cache the results of npm install for future runs and save some build times.
+
+## Create and handle artifacts
+
+Sometimes, after running some actions like ```npm run build``` we need to take the output folder, and send it somewhere else.
+
 
 ## Build NextJS/CRA apps
+## Setting values for Environment on run time.
 
-I want to be able to build ReactJS, or NextJS, or whatever framework du-jour app
+When I'm working with frontend apps, I like to set a variable called REACT_APP_VERSION during the build time, which is then displayed on the footer of the app. Usually the value of this variable is calculated at build time, where we take the branch that we're building, and the current date and time.
+
+The workflow here assumes you're using NextJS so sets the variable called NEXT_PUBLIC_APP_VERSION , and then builds the app.
 
 
 ## Deploy Said apps
 
-## Setting values for Environment on run time.
-
-I like to set a variable called REACT_APP_VERSION during the build time
 
 ## Shared Workflows
 
