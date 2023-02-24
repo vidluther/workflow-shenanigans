@@ -30,7 +30,7 @@ jobs:
       - name: Build NextJS App
         run: npm run build
         env:
-          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}-${{ steps.set_version.outputs.action_version }}
+          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}-${{ steps.set_version.outputs.app_version }}
       - name: debug filename
         run: echo "About to build $FILE_NAME"
       - name: Create tarball
