@@ -31,6 +31,13 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_VERSION: ${{ github.ref_name }}-${{ steps.set_version.outputs.action_version }}
-      - name: create tarball that can be deployed anywhere
+      - name: debug filename
         run: echo "About to build $FILE_NAME"
-#        run: tar -czvf $FILE_NAME out
+      - name: Create tarball
+        id: nextjs_app_tarball
+        run: tar -czvf $FILE_NAME out
+      - name: Upload tarball
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.FILE_NAME }}
+          path: ${{ env.FILE_NAME }}
