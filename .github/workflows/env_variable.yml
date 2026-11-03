@@ -8,7 +8,7 @@ env:
   FILE_NAME: workflow-shenanigans-nextjsapp-${{ github.ref_name }}
 jobs:
   build_nextjs_app:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
