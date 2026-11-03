@@ -37,7 +37,7 @@ jobs:
         id: nextjs_app_tarball
         run: tar -czvf $FILE_NAME.tar.gz out
       - name: Upload tarball
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: ${{ env.FILE_NAME }}
           path: ${{ env.FILE_NAME }}.tar.gz
